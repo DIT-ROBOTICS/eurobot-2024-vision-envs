@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev libusb-1.0-0-dev libudev-dev pkg-config udev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev \
     libglu1-mesa-dev libglew-dev mesa-common-dev libxi-dev \
-    ros-noetic-diagnostic-updater ros-noetic-rviz \
+    ros-noetic-diagnostic-updater ros-noetic-rviz ros-noetic-robot-state-publisher\
     && rm -rf /var/lib/apt/lists/*d
 
 ### install realsense SDK
@@ -39,4 +39,10 @@ RUN sudo apt-get update && \
     echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc \
     && sudo rm -rf /var/lib/apt/lists/* 
 
+### fix tf2_server_test_nodelets.xml missing error
+COPY setup_tf2_server.sh /setup_tf2_server.sh
+RUN /bin/bash /setup_tf2_server.sh
+
 CMD ["/bin/bash"]
+# CMD [" roslaunch realsense2_camera rs_d435_camera_with_model.launch"]
+# CMD [" sudo realsense-viewer "]

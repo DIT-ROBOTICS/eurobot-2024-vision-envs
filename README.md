@@ -4,7 +4,7 @@ This repository serves as a gateway to harness the full potential of RealSenseâ„
 
 ## A. Build Image and Run Container
 
-The architecture of its each environment is  on the folder name.
+The architecture of its each environment follows by the folder name.
 
 1. Git clone this repo.
 
