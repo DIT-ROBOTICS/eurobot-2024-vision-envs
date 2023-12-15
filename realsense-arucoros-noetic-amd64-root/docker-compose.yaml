@@ -7,7 +7,7 @@ services:
   arucotag:
     build: 
       context: .  
-      dockerfile: Dockerfile-ROOT
+      dockerfile: Dockerfile
     image: pomelo925/realsense-arucoros-noetic-root:realsense-arucoros-noetic-root
     container_name: realsense
     command: /bin/bash 

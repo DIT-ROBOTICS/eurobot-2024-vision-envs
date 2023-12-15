@@ -40,8 +40,8 @@ RUN sudo apt-get update && \
     && sudo rm -rf /var/lib/apt/lists/* 
 
 ### fix tf2_server_test_nodelets.xml missing error
-COPY setup_tf2_server.sh /setup_tf2_server.sh
-RUN /bin/bash /setup_tf2_server.sh
+COPY fixing.sh /fixing.sh
+RUN /bin/bash /fixing.sh
 
 CMD ["/bin/bash"]
 # CMD [" roslaunch realsense2_camera rs_d435_camera_with_model.launch"]
