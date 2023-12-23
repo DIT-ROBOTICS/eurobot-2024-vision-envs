@@ -1,7 +1,6 @@
 # Intel® RealSense™ & ArUco Marker on ROS Noetic Guide (AMD64)
 
-
-Env : ROS noetic x Intel® RealSense™ x Aruco Marker
+Env : ROS noetic x Intel® RealSense™ x YOLOv8 (without GPU)
 
 ## 🛠️ Settings (REQUIRED) 🛠️
 
