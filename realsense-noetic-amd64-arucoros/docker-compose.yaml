@@ -8,8 +8,8 @@ services:
     build: 
       context: .  
       dockerfile: Dockerfile
-    image: pomelo925/realsense-yolov8-noetic-amd64-root
-    container_name: realsense
+    image: pomelo925/realsense-noetic-amd64:arucoros
+    container_name: arucoross
     command: /bin/bash 
     tty: true  
     network_mode: host
