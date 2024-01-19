@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 ### install realsense SDK
 WORKDIR /home
-RUN git clone https://github.com/IntelRealSense/librealsense.git /opt/librealsense
+RUN git clone --branch master https://github.com/IntelRealSense/librealsense.git /opt/librealsense
 WORKDIR /opt/librealsense/build
 RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
     make -j4 && make install
@@ -25,8 +25,8 @@ RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
 ### ros pkg
 WORKDIR /home/realsense-ws/src
 RUN git clone --branch 0.3.7 https://github.com/ros-drivers/usb_cam.git && \
-    git clone https://github.com/ros-perception/image_pipeline.git && \
-    git clone https://github.com/pal-robotics/ddynamic_reconfigure.git && \
+    git clone --branch noetic https://github.com/ros-perception/image_pipeline.git && \
+    git clone --branch kinectic-devel https://github.com/pal-robotics/ddynamic_reconfigure.git && \
     git clone --branch ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
     (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1))
 

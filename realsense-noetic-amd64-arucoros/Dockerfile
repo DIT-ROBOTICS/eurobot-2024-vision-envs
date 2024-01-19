@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev libusb-1.0-0-dev libudev-dev pkg-config udev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev \
     libglu1-mesa-dev libglew-dev mesa-common-dev libxi-dev \
-    ros-noetic-diagnostic-updater ros-noetic-rviz ros-noetic-robot-state-publisher\
+    ros-noetic-diagnostic-updater ros-noetic-rviz ros-noetic-robot-state-publisher \
     && rm -rf /var/lib/apt/lists/*d
 
 ### install realsense SDK
@@ -25,7 +25,7 @@ RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
 WORKDIR /home/realsense-ws/src
 RUN git clone -b noetic-devel https://github.com/pal-robotics/aruco_ros.git && \
     git clone --branch 0.3.7 https://github.com/ros-drivers/usb_cam.git && \
-    git clone https://github.com/ros-perception/image_pipeline.git && \
+    git clone --branch noetic https://github.com/ros-perception/image_pipeline.git && \
     git clone https://github.com/pal-robotics/ddynamic_reconfigure.git && \
     git clone --branch ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
     (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1))
