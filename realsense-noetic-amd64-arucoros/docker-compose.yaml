@@ -26,5 +26,3 @@ services:
       - /dev/bus/usb  # Grant access to USB devices
 
 
-    ## [IMPORTANT] Change container hostname to that of the host machine's 
-    # hostname: $(hostname)
