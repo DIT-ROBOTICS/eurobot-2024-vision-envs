@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     libglu1-mesa-dev libglew-dev mesa-common-dev libxi-dev \
     ros-noetic-diagnostic-updater ros-noetic-rviz ros-noetic-robot-state-publisher\
     && pip3 install ultralytics \
-    && rm -rf /var/lib/apt/lists/*d
+    && rm -rf /var/lib/apt/lists/*
 
 ### install realsense SDK
 WORKDIR /home

@@ -7,7 +7,7 @@ services:
     build: 
       context: .  
       dockerfile: Dockerfile
-    image: pomelo925/realsense-noetic:yolov8
+    image: pomelo925/realsense-noetic-root:ultralytics
     container_name: yolov8
     command: /bin/bash 
     tty: true  
