@@ -7,7 +7,7 @@ services:
   arucotag:
     build: 
       context: .  
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-USER
     image: pomelo925/realsense-arucoros-noetic:realsense-arucoros-noetic
     container_name: realsense
     command: /bin/bash 
@@ -28,4 +28,4 @@ services:
 
 
     ## [IMPORTANT] Change container hostname to that of the host machine's 
-    hostname: OuO
+    hostname: DIT-2024-02
