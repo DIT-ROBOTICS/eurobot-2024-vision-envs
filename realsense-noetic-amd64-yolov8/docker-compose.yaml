@@ -2,14 +2,13 @@ version: '3.8'
 
 ## Please read README.md first to setup udev rules##
 
-
 services:
   arucotag:
     build: 
       context: .  
-      dockerfile: Dockerfile-ROOT
-    image: pomelo925/realsense-arucoros-noetic-root:realsense-arucoros-noetic-root
-    container_name: realsense
+      dockerfile: Dockerfile
+    image: pomelo925/realsense-noetic:yolov8
+    container_name: yolov8
     command: /bin/bash 
     tty: true  
     network_mode: host
@@ -19,13 +18,9 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - $HOME/.Xauthority:/home/user/.Xauthority 
+      - $HOME/.Xauthority:/root/.Xauthority
     environment:
       - DISPLAY=${DISPLAY}  # Set display environment variable
-      - XAUTHORITY=/home/user/.Xauthority   # Set Xauthority path
+      - XAUTHORITY=/root/.Xauthority   # Set Xauthority path
     devices:
       - /dev/bus/usb  # Grant access to USB devices
-
-
-    ## [IMPORTANT] Change container hostname to that of the host machine's 
-    hostname: DIT-2024-02
