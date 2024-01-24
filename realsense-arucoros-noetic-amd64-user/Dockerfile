@@ -51,12 +51,12 @@ RUN sudo apt-get update && \
     rosdep update && \
     rosdep install --from-paths . --ignore-src -r -y && \
     cd .. && \
-    /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; catkin_make' && \
+    /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash' && \
     echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc \
     && sudo rm -rf /var/lib/apt/lists/* 
 
 ## Switch back to root user if necessary
-USER root/
+#USER root/
 
 ENV SHELL /bin/bash
 
