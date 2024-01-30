@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.authors="yoseph.huang@gmail.com"
 
 ## pkgs installation
 RUN apt-get update && apt-get install -y \
-    sudo net-tools ssh nano git usbutils x11-apps \
+    sudo net-tools ssh nano git usbutils x11-apps tmux\
     apt-utils ros-noetic-tf* \
     libssl-dev libusb-1.0-0-dev libudev-dev pkg-config udev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev \
@@ -14,8 +14,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*d
 
 ### install realsense SDK
-WORKDIR /home
-RUN git clone https://github.com/IntelRealSense/librealsense.git /opt/librealsense
+WORKDIR /opt/librealsense
+RUN git clone https://github.com/IntelRealSense/librealsense.git /opt/librealsense && \
+    rm -rf .git
+
 WORKDIR /opt/librealsense/build
 RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
     make -j4 && make install
@@ -28,7 +30,9 @@ RUN git clone -b noetic-devel https://github.com/pal-robotics/aruco_ros.git && \
     git clone --branch noetic https://github.com/ros-perception/image_pipeline.git && \
     git clone --branch kinetic-devel https://github.com/pal-robotics/ddynamic_reconfigure.git && \
     git clone --branch ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
-    (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1))
+    (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1)) && \
+    rm -rf .git
+
 
 ### install and build dependencies
 RUN sudo apt-get update && \
