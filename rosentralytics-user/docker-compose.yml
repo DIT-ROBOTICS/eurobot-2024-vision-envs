@@ -5,7 +5,7 @@
 # ```
 name: rosentralytics
 services:
-    centralytics:
+    centraly:
         build:
             context: .
             dockerfile: Dockerfile
@@ -28,6 +28,6 @@ services:
                 limits:
                     cpus: '2'
                     memory: 2gb
-        image: ohin112/rosentralytics:final
-        container_name: final_test
+        image: ohin112/rosentralytics:R2
+        container_name: R2_test
         command: bash
