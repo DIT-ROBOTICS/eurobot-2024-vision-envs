@@ -7,7 +7,7 @@ services:
     build: 
       context: .  
       dockerfile: Dockerfile
-    image: pomelo925/realsense-noetic:arucoros
+    image: pomelo925/realsense-noetic-root:arucoros
     container_name: arucoros
     command: /bin/bash 
     tty: true  
