@@ -3,7 +3,8 @@ FROM ros:noetic
 LABEL org.opencontainers.image.authors="ohin"
 
 ARG USERNAME=yolo
-ARG USER_UID=1002
+#change to your user id and group id
+ARG USER_UID=1000 
 ARG USER_GID=$USER_UID
 ARG TZ=Asia/Taipei
 
@@ -59,18 +60,22 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 USER $USERNAME
+#clone ros pkgs
 WORKDIR /home/$USERNAME/realsense-ws/src
-
 RUN git clone -b noetic-devel https://github.com/pal-robotics/aruco_ros.git && \
-    git clone --branch ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
+    git clone -b ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
     (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1))
 
-RUN sudo apt-get update && \
+RUN sudo apt update && \
     rosdep update && \
     rosdep install --from-paths . --ignore-src -r -y && \
     cd .. && \
     /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; catkin_make' && \
     echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc \
     && sudo rm -rf /var/lib/apt/lists/* 
+
+#clone into workspace
+WORKDIR /home/$USERNAME/yolo
+RUN git clone https://github.com/HungPinChiu/yolo
 
 SHELL ["/bin/bash","-ic"]
