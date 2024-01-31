@@ -16,13 +16,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
     sudo \
     lsof \
+    cmake \
     python3-pip \
     v4l-utils \
     apt-transport-https \
     ros-noetic-tf* \
     ros-noetic-rviz \
     ros-noetic-diagnostic-updater \
-    libgl1-mesa-glx libssl-dev libusb-1.0-0-dev libudev-dev pkg-config libgtk-3-dev cmake \
+    libgl1-mesa-glx libssl-dev libusb-1.0-0-dev libudev-dev pkg-config libgtk-3-dev \
     libqt5gui5 libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev at \
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get clean all
@@ -68,5 +69,9 @@ RUN git clone -b noetic-devel https://github.com/pal-robotics/aruco_ros.git && \
 #clone into workspace
 WORKDIR /home/$USERNAME/yolo
 RUN git clone https://github.com/HungPinChiu/yolo
+
+# fix tf2_server_test_nodelets.xml missing error
+# COPY fixing.sh /fixing.sh
+# RUN /bin/bash /fixing.sh
 
 SHELL ["/bin/bash","-ic"]
