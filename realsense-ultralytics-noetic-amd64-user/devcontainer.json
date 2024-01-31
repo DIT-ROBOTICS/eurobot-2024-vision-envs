@@ -1,6 +1,0 @@
-{
-	"name": "v8",
-	"dockerComposeFile": ["docker-compose.yml"],
-	"service": "ultralytics",
-	"workspaceFolder": "/home/yolo/workspace"
-}
