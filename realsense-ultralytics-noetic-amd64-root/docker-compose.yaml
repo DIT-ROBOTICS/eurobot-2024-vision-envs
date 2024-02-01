@@ -7,8 +7,8 @@ services:
     build: 
       context: .  
       dockerfile: Dockerfile
-    image: pomelo925/realsense-noetic-root:arucoros
-    container_name: arucoros
+    image: pomelo925/realsense-noetic-root:ultralytics
+    container_name: yolov8
     command: /bin/bash 
     tty: true  
     network_mode: host
@@ -24,5 +24,3 @@ services:
       - XAUTHORITY=/root/.Xauthority   # Set Xauthority path
     devices:
       - /dev/bus/usb  # Grant access to USB devices
-
-

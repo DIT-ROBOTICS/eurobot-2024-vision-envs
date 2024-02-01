@@ -3,21 +3,20 @@ FROM ros:noetic
 
 LABEL org.opencontainers.image.authors="yoseph.huang@gmail.com"
 
-## pkgs installation
+## pkgs installation (including yolov8)
 RUN apt-get update && apt-get install -y \
-    sudo net-tools ssh nano git usbutils x11-apps tmux\
+    sudo net-tools ssh nano git usbutils x11-apps pip \
     apt-utils ros-noetic-tf* \
     libssl-dev libusb-1.0-0-dev libudev-dev pkg-config udev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev \
     libglu1-mesa-dev libglew-dev mesa-common-dev libxi-dev \
     ros-noetic-diagnostic-updater ros-noetic-rviz ros-noetic-robot-state-publisher \
-    && rm -rf /var/lib/apt/lists/*d
+    && pip3 install ultralytics \
+    && rm -rf /var/lib/apt/lists/*
 
 ### install realsense SDK
-WORKDIR /opt/librealsense
-RUN git clone https://github.com/IntelRealSense/librealsense.git /opt/librealsense && \
-    rm -rf .git
-
+WORKDIR /home
+RUN git clone --branch master https://github.com/IntelRealSense/librealsense.git /opt/librealsense
 WORKDIR /opt/librealsense/build
 RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
     make -j4 && make install
@@ -25,14 +24,12 @@ RUN cmake ../ -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release && \
 
 ### ros pkg
 WORKDIR /home/realsense-ws/src
-RUN git clone -b noetic-devel https://github.com/pal-robotics/aruco_ros.git && \
-    git clone --branch 0.3.7 https://github.com/ros-drivers/usb_cam.git && \
+RUN git clone --branch 0.3.7 https://github.com/ros-drivers/usb_cam.git && \
     git clone --branch noetic https://github.com/ros-perception/image_pipeline.git && \
     git clone --branch kinetic-devel https://github.com/pal-robotics/ddynamic_reconfigure.git && \
     git clone --branch ros1-legacy --single-branch https://github.com/IntelRealSense/realsense-ros.git && \
     (cd realsense-ros && git checkout $(git tag | sort -V | grep -P "^2.\\d+\\.\\d+" | tail -1)) && \
     rm -rf .git
-
 
 ### install and build dependencies
 RUN sudo apt-get update && \
