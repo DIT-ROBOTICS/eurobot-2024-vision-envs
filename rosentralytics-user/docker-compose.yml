@@ -15,7 +15,7 @@ services:
         volumes:
             - /tmp/.X11-unix:/tmp/.X11-unix
             - $HOME/.Xauthority:/root/.Xauthority
-            - $HOME/ohin/ohin_ws:/home/yolo/yolo #change the workspace path
+            - $HOME/gary/gary_ws:/home/yolo #change the workspace path
             - /dev/bus/usb:/dev/bus/usb
         environment:
             - DISPLAY=$DISPLAY
@@ -26,8 +26,8 @@ services:
         deploy:
             resources:
                 limits:
-                    cpus: '2'
                     memory: 2gb
-        image: ohin112/rosentralytics:late
-        container_name: R2_test
+        cpuset: "0,1"
+        image: ohin112/rosentralytics:R2_film
+        container_name: gary_test
         command: bash
